@@ -1,4 +1,4 @@
-## Simple Terraform Deployment of an ECS Fargate Service
+## Simple NGWAF Terraform Deployment to an ECS Fargate Service
 
 This is a just a simple demo service deploying the Fastly NGWAF NGINX Module and the agent (sigsci-agent) to [ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html) Fargate using [Terraform](https://www.terraform.io/). 
 
