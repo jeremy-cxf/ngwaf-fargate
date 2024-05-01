@@ -5,10 +5,9 @@ This is a just a simple demo service deploying the Fastly NGWAF NGINX Module and
 This project deploys an [nginx](https://hub.docker.com/_/nginx) container behind an AWS [application load balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) into the default AWS VPC.  
 Also hooked up to [Cloudwatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) for some simple monitoring (although it was somewhat necessary to do this anyway while writing). 
 
-You'll need to set the variables appropriately in the vars file, see:
-https://docs.fastly.com/en/ngwaf/accessing-agent-keys
+This is a deployed with quite minimal CPU/MEM resources, to keep within development minimums, and really just to give a rough idea of the minimum parameters needed as a working boiletplate.
 
-
+You'll need to set some variables appropriately in the vars file, namely the secret keys for the NGWAF Site:
 
 ```bash
 variable "agent_key" {
@@ -24,7 +23,7 @@ variable "agent_secret" {
 }
 ```
 
-If you are not providing creds through some other means, you'll need to provide a path to your credentials via:
+If you are not providing creds through some other means, you'll need to provide a path to your AWS credentials via:
 
 ```bash
   shared_credentials_files = ["/path/to/credentials"]
@@ -40,7 +39,6 @@ provider "aws" {
   profile = "jeremy-dev"
 }
 ```
-
 
 ### Important Notes around Bind Mounts:
 The module and the agent communicate over RPC via a Unix Socket, so a bind mount is needed to share a volume to write to the socket and this is demonstrated.
