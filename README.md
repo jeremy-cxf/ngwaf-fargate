@@ -43,9 +43,12 @@ provider "aws" {
 
 
 ### Important Notes around Bind Mounts:
-The module and the agent communicate over RPC via a Unix Socket, so a bind mount is needed.to share a volume to write to the socket and this is demonstrated.
+The module and the agent communicate over RPC via a Unix Socket, so a bind mount is needed to share a volume to write to the socket and this is demonstrated.
 However, theres a caveat, Fargate does not allow the agent socket bind to occur on `/var/run` which it has historically done, so the agent mounts on /sigsci/tmp (it detects this) instead.
-The modules does not do this though, so the module configuration needs to be updated to look at /sigsci/tmp. You can review the nginx Dockerfile provided on how to hack around this quickly for this scenario, but ideally, you'll want a config mount to apply your nginx config if it deviates further, given the hack is based around the default nginx containers configuration. (however should still technically work with most).
+
+The modules does not do this, so the module configuration is *required* to be updated to look for the socket at `/sigsci/tmp`. 
+
+You can review the nginx Dockerfile provided on how to hack around this quickly for this scenario, but ideally, best practices is to do config mount and apply your nginx config that way if it deviates further, given the hack is based around the default nginx containers configuration (however should still technically work with most).
 
 Once all your config is set, you can:
 
