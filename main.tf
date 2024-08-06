@@ -7,10 +7,10 @@ terraform {
   }
 }
 
+// The default state expects AWS_SECRET_ACCESS_KEY on your shell/path etc.
+// Setup how you want.
 provider "aws" {
   region = "us-east-1"
-  shared_credentials_files = ["/path/to/credentials"]
-  profile = "<yourawsprofile>"
 }
 
 # ECS Cluster
@@ -139,8 +139,6 @@ data "aws_iam_policy_document" "ecs_task_execution_assume_role_doc" {
 data "template_file" "template_json" {
   template = templatefile("${path.module}/task_definition.tpl.json", {
     logs_name = "${var.cluster_name}-logs",
-    shared_volume_name = "shared_socket"
-    socket_path = "/sigsci/tmp"
     agent_key = "${var.agent_key}"
     agent_secret = "${var.agent_secret}"
   })
@@ -175,7 +173,7 @@ resource "aws_ecs_service" "service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
-    container_name   = "nginx"
+    container_name   = "sigsci-agent"
     container_port   = 80
   }
 

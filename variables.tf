@@ -12,12 +12,12 @@ variable "task_count" {
 
 variable "agent_key" {
   description = "agent access key see: https://docs.fastly.com/en/ngwaf/accessing-agent-keys"
-  default = "<yourkey>"
+  default = "<your-key>"
   type = string 
 }
 
 variable "agent_secret" {
   description = "agent secret key see: https://docs.fastly.com/en/ngwaf/accessing-agent-keys"
-  default = "<yoursecret>"
+  default = "<your-secret>"
   type = string 
 }
