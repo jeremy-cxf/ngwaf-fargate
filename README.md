@@ -1,5 +1,7 @@
 ## Simple NGWAF (Sigsci) Terraform Deployment to an ECS Fargate Service
 
+## To see this as a revproxy deployment use the branch `revproxy`
+
 This is a just a simple demo service deploying the Fastly NGWAF NGINX Module and the agent (sigsci-agent) to [ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html) Fargate using [Terraform](https://www.terraform.io/). 
 
 This project deploys an [nginx](https://hub.docker.com/_/nginx) container behind an AWS [application load balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) into the default AWS VPC.  
