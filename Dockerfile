@@ -33,10 +33,8 @@ RUN source /etc/os-release && \
     DEBIAN_FRONTEND=noninteractive apt-get -qq -y install sigsci-agent=${AGENT_VERSION} \
     nginx-module-sigsci-nxo=$(apt-cache madison nginx-module-sigsci-nxo | grep $(nginx -v 2>&1 | grep -oP 'nginx/\K[0-9.]+') | awk -F'|' '{print $2}' | head -n 1 | xargs)
 
-# Dirty hack to config
+# Dirty hack to config. Although it works for testing things out, I'd recommend using some form of configuration management for changes to nginx.conf.
 RUN sed -i 's@^pid.*@&\nload_module /usr/lib/nginx/modules/ngx_http_sigsci_module.so;\n@' /etc/nginx/nginx.conf
-
-# Don't do this at home kids.
 RUN sed -i 's@default_type.*@&\n    sigsci_agent_host unix:/sigsci/tmp/sigsci.sock;\n@' /etc/nginx/nginx.conf 
     
 EXPOSE 80
